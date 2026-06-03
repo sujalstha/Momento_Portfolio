@@ -1,0 +1,35 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# Xcode
+build/
+DerivedData/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+xcuserdata/
+*.xcuserstate
+*.xcuserdatad/
+
+# Swift Package Manager
+.swiftpm/
+Package.resolved
+.build/
+
+# Local secrets — never commit. Use ios-app/Secrets.example.swift as a template.
+ios-app/GemmaCoach/Services/Secrets.swift
+**/Secrets.swift
+
+# Generated
+ios-app/GemmaCoach.xcodeproj/
+ios-app/*.xcodeproj/
+
+# Editors
+.vscode/
+.idea/
+
+# Logs
+*.log

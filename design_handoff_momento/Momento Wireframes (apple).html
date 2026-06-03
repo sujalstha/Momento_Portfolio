@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Momento — Hi-fi</title>
+<link rel="stylesheet" href="apple-styles.css" />
+<style>
+  html, body { height: 100%; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script>
+  // One-time cleanup: previous renders may have saved an off-canvas pan/zoom
+  // (e.g. when the canvas was momentarily empty). Wipe any saved viewport
+  // whose scale is suspicious so the canvas starts from a sensible 1.0.
+  try {
+    for (const k of Object.keys(localStorage)) {
+      if (k.startsWith('dc-viewport:')) {
+        const s = JSON.parse(localStorage.getItem(k) || 'null');
+        if (!s || s.scale < 0.25 || s.scale > 4 || Math.abs(s.x) > 4000 || Math.abs(s.y) > 4000) {
+          localStorage.removeItem(k);
+        }
+      }
+    }
+  } catch (e) {}
+</script>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="apple-screens.jsx"></script>
+</body>
+</html>

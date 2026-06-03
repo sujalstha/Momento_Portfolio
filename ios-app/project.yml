@@ -1,0 +1,147 @@
+name: GemmaCoach
+options:
+  bundleIdPrefix: com.sujalshrestha
+  deploymentTarget:
+    iOS: "26.0"
+    watchOS: "26.0"
+  developmentLanguage: en
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    IPHONEOS_DEPLOYMENT_TARGET: "26.0"
+    GENERATE_INFOPLIST_FILE: NO
+    ENABLE_USER_SCRIPT_SANDBOXING: NO
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+
+packages:
+  CoreMLLLM:
+    url: https://github.com/john-rocky/CoreML-LLM.git
+    from: "1.9.0"
+  Supabase:
+    url: https://github.com/supabase/supabase-swift.git
+    from: "2.20.0"
+  GoogleSignIn:
+    url: https://github.com/google/GoogleSignIn-iOS.git
+    from: "7.1.0"
+
+targets:
+  GemmaCoach:
+    type: application
+    platform: iOS
+    scheme:
+      gatherCoverageData: false
+    deploymentTarget: "26.0"
+    sources:
+      - path: GemmaCoach
+        excludes:
+          - "Info.plist"
+          - "GemmaCoach.entitlements"
+          - "ContentView.swift"
+          - "Models/yolo11n.mlpackage"
+    resources:
+      - path: GemmaCoach/Assets.xcassets
+      - path: GemmaCoach/Preview Content
+      - path: GemmaCoach/Models/yolo11n.mlpackage
+    info:
+      path: GemmaCoach/Info.plist
+      properties:
+        CFBundleDisplayName: GemmaCoach
+        UILaunchScreen:
+          UIColorName: AccentColor
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+        UIBackgroundModes:
+          - audio
+        UIRequiredDeviceCapabilities:
+          - arm64
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        NSHealthShareUsageDescription: GemmaCoach reads your heart rate, blood oxygen, running power, and stride length from Apple Watch to provide real-time coaching feedback.
+        NSPhotoLibraryUsageDescription: Pick a photo to ask Gemma 4 about.
+        NSMicrophoneUsageDescription: Record voice prompts for Gemma 4 coaching.
+        NSSpeechRecognitionUsageDescription: Momento listens to your voice during onboarding and runs so you can answer and ask hands-free.
+        NSCameraUsageDescription: Momento uses the camera during a run to detect obstacles and hazards ahead and warn you in real time.
+        NSLocationWhenInUseUsageDescription: Track your speed and pace while running to provide live coaching feedback.
+        NSMotionUsageDescription: Track your step cadence to provide running feedback.
+        NSBluetoothAlwaysUsageDescription: Connect to an external Bluetooth heart rate monitor to provide live running feedback.
+        CFBundleURLTypes:
+          - CFBundleURLName: com.momento.auth
+            CFBundleURLSchemes:
+              - Momento
+          - CFBundleURLName: com.googleusercontent.apps.101179845047-ep2m9c2ur38asc68pt32tvv8g6ukcigr
+            CFBundleURLSchemes:
+              - com.googleusercontent.apps.101179845047-ep2m9c2ur38asc68pt32tvv8g6ukcigr
+    entitlements:
+      path: GemmaCoach/GemmaCoach.entitlements
+      properties:
+        com.apple.developer.healthkit: true
+        com.apple.developer.applesignin:
+          - Default
+    settings:
+      base:
+        PRODUCT_NAME: GemmaCoach
+        PRODUCT_BUNDLE_IDENTIFIER: com.sujalshrestha.momento
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: BCS8L2V2WV
+        SWIFT_OBJC_BRIDGING_HEADER: ""
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        DEVELOPMENT_ASSET_PATHS: '"GemmaCoach/Preview Content"'
+        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/Frameworks @loader_path/Frameworks"
+    dependencies:
+      - package: CoreMLLLM
+        product: CoreMLLLM
+      - package: Supabase
+        product: Supabase
+      - package: GoogleSignIn
+        product: GoogleSignIn
+      - package: GoogleSignIn
+        product: GoogleSignInSwift
+      - target: GemmaCoachWatch
+        embed: true
+        embedType: watchApp
+
+  GemmaCoachWatch:
+    type: application
+    platform: watchOS
+    scheme:
+      gatherCoverageData: false
+    deploymentTarget: "26.0"
+    sources:
+      - path: GemmaCoachWatch
+        excludes:
+          - "Info.plist"
+          - "GemmaCoachWatch.entitlements"
+    resources:
+      - path: GemmaCoachWatch/Assets.xcassets
+    info:
+      path: GemmaCoachWatch/Info.plist
+      properties:
+        CFBundleDisplayName: GemmaCoach
+        WKApplication: true
+        WKCompanionAppBundleIdentifier: com.sujalshrestha.momento
+        WKBackgroundModes:
+          - workout-processing
+        NSHealthShareUsageDescription: GemmaCoach reads your heart rate, running speed, stride length, power, and energy from Apple Watch sensors for real-time coaching.
+        NSHealthUpdateUsageDescription: GemmaCoach saves your workout to Apple Health.
+        NSMotionUsageDescription: Track your step cadence while running.
+        NSLocationWhenInUseUsageDescription: Track GPS pace and distance during your run.
+    entitlements:
+      path: GemmaCoachWatch/GemmaCoachWatch.entitlements
+      properties:
+        com.apple.developer.healthkit: true
+    settings:
+      base:
+        PRODUCT_NAME: GemmaCoachWatch
+        PRODUCT_BUNDLE_IDENTIFIER: com.sujalshrestha.momento.watchkitapp
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: BCS8L2V2WV
+        WATCHOS_DEPLOYMENT_TARGET: "26.0"
+        TARGETED_DEVICE_FAMILY: "4"
+        SWIFT_VERSION: "5.9"
+        GENERATE_INFOPLIST_FILE: NO
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon

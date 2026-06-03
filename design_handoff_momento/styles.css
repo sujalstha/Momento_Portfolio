@@ -1,0 +1,472 @@
+/* Momento — wireframe sketchy styles
+   Palette: Okabe-Ito colorblind-safe (same family Datylon recommends)
+*/
+
+:root {
+  --ink: #1B1B1F;
+  --ink-soft: #4A4A52;
+  --paper: #FAF7F1;
+  --paper-2: #F2EDE2;
+  --rule: #2A2A30;
+
+  /* Okabe-Ito accents — readable across all CVD types */
+  --orange: #E69F00;       /* primary action */
+  --sky:    #56B4E9;       /* secondary / info */
+  --green:  #009E73;       /* success / live */
+  --verm:   #D55E00;       /* warning / record */
+  --yellow: #F0E442;       /* highlight */
+  --blue:   #0072B2;       /* deep blue */
+
+  --font-hand: "Caveat", "Patrick Hand", cursive;
+  --font-body: "Patrick Hand", "Caveat", cursive;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #E8E2D2;
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+
+/* ---------- Phone frame ---------- */
+.phone {
+  width: 380px;
+  height: 780px;
+  background: var(--paper);
+  border: 2.5px solid var(--ink);
+  border-radius: 38px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 6px 6px 0 var(--ink);
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+}
+
+.phone::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 26px;
+  background: var(--ink);
+  border-radius: 14px;
+  z-index: 50;
+}
+
+.statusbar {
+  height: 44px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 28px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink);
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 22px 22px;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ---------- Sketchy primitives ---------- */
+.h1 {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 1.02;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.h2 {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.05;
+  margin: 0;
+}
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0;
+}
+.body {
+  font-family: var(--font-body);
+  font-size: 20px;
+  line-height: 1.28;
+  margin: 0;
+}
+.label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.num {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 1;
+}
+
+/* Sketchy box: hand-drawn-feel border */
+.box {
+  border: 2.5px solid var(--ink);
+  border-radius: 18px;
+  background: var(--paper);
+  position: relative;
+}
+.box.dashed { border-style: dashed; }
+.box.thick { border-width: 3.5px; }
+
+/* The "shaky" / wobble border via two layered radii */
+.scribble {
+  border: 2.5px solid var(--ink);
+  border-radius: 22px 26px 20px 28px / 24px 22px 28px 20px;
+  background: var(--paper);
+  position: relative;
+}
+
+/* Big tap target */
+.tap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 88px;
+  border: 3px solid var(--ink);
+  border-radius: 22px 26px 22px 28px / 26px 22px 28px 22px;
+  background: var(--paper);
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 30px;
+  color: var(--ink);
+  padding: 8px 18px;
+  text-align: center;
+  box-shadow: 4px 4px 0 var(--ink);
+  cursor: pointer;
+}
+.tap.primary { background: var(--orange); }
+.tap.sky     { background: var(--sky); color: var(--ink); }
+.tap.green   { background: var(--green); color: var(--paper); }
+.tap.dark    { background: var(--ink); color: var(--paper); }
+.tap.ghost   { background: var(--paper); }
+
+.tap small {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-top: 2px;
+  opacity: 0.85;
+  font-weight: 400;
+}
+.tap.column { flex-direction: column; gap: 4px; min-height: 110px; }
+
+/* Tabs / segmented control */
+.tabs {
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  border: 2.5px solid var(--ink);
+  border-radius: 999px;
+  background: var(--paper-2);
+}
+.tabs > div {
+  flex: 1;
+  text-align: center;
+  padding: 10px 6px;
+  font-family: var(--font-hand);
+  font-size: 20px;
+  border-radius: 999px;
+  color: var(--ink);
+}
+.tabs > div.on {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* Hatched fill (placeholder image / illustration) */
+.hatch {
+  background:
+    repeating-linear-gradient(45deg,
+      var(--ink) 0 1.2px, transparent 1.2px 8px),
+    var(--paper-2);
+}
+.hatch-orange {
+  background:
+    repeating-linear-gradient(45deg,
+      var(--orange) 0 1.5px, transparent 1.5px 8px),
+    var(--paper);
+}
+.hatch-sky {
+  background:
+    repeating-linear-gradient(-45deg,
+      var(--sky) 0 1.5px, transparent 1.5px 8px),
+    var(--paper);
+}
+.hatch-green {
+  background:
+    repeating-linear-gradient(45deg,
+      var(--green) 0 1.5px, transparent 1.5px 9px),
+    var(--paper);
+}
+
+/* Annotation arrows / notes */
+.note {
+  position: absolute;
+  font-family: var(--font-hand);
+  font-size: 17px;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.note::before {
+  content: "↳";
+  margin-right: 4px;
+}
+
+/* Voice waveform — simple bars */
+.wave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 80px;
+}
+.wave span {
+  width: 6px;
+  background: var(--ink);
+  border-radius: 3px;
+  display: block;
+}
+
+/* Mic / orb */
+.orb {
+  width: 180px;
+  height: 180px;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 35% 35%, var(--sky) 0%, var(--blue) 60%, var(--ink) 110%);
+  position: relative;
+  box-shadow: 5px 5px 0 var(--ink);
+}
+.orb::after {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border: 2px dashed rgba(255,255,255,0.65);
+  border-radius: 50%;
+}
+.orb-ring {
+  position: absolute;
+  border: 2.5px dashed var(--ink);
+  border-radius: 50%;
+}
+
+/* Bottom tab bar */
+.tabbar {
+  display: flex;
+  border-top: 2.5px solid var(--ink);
+  background: var(--paper-2);
+  padding: 8px 4px 14px;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.tabbar > div {
+  flex: 1;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 8px 2px;
+  border-radius: 12px;
+  color: var(--ink-soft);
+}
+.tabbar > div.on {
+  background: var(--ink);
+  color: var(--paper);
+}
+.tabbar .glyph {
+  display: block;
+  font-family: var(--font-hand);
+  font-size: 22px;
+  margin-bottom: 2px;
+  color: inherit;
+}
+
+/* List rows */
+.row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 18px;
+  border: 2.5px solid var(--ink);
+  border-radius: 18px;
+  background: var(--paper);
+}
+.row .left { flex: 1; }
+.row .chev {
+  font-family: var(--font-hand);
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* Section divider */
+.divider {
+  height: 0;
+  border-top: 2px dashed var(--ink);
+  opacity: 0.45;
+  margin: 4px 0;
+}
+
+/* Metric tile */
+.tile {
+  border: 2.5px solid var(--ink);
+  border-radius: 16px;
+  padding: 10px 12px;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 86px;
+}
+.tile .v {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1;
+}
+.tile .u {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.tile .k {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+/* Pills / chips */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: var(--paper);
+}
+.pill.orange { background: var(--orange); }
+.pill.sky    { background: var(--sky); }
+.pill.green  { background: var(--green); color: var(--paper); }
+.pill.dark   { background: var(--ink); color: var(--paper); }
+
+/* Marker headline highlight */
+.marker {
+  background: linear-gradient(180deg, transparent 55%, var(--yellow) 55% 92%, transparent 92%);
+  padding: 0 4px;
+}
+
+/* Scribble underline */
+.uline {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 6'><path d='M2 4 Q 30 1 60 4 T 118 4' stroke='%231B1B1F' stroke-width='2' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 6px;
+  padding-bottom: 6px;
+}
+
+/* Voice indicator bubble */
+.vbubble {
+  border: 2.5px solid var(--ink);
+  border-radius: 22px 22px 22px 6px;
+  padding: 10px 14px;
+  background: var(--paper);
+  font-family: var(--font-hand);
+  font-size: 22px;
+  line-height: 1.15;
+  position: relative;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.vbubble.user {
+  border-radius: 22px 22px 6px 22px;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* Big floating record button */
+.rec {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  border: 4px solid var(--ink);
+  background: var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: 6px 6px 0 var(--ink);
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 36px;
+  text-align: center;
+  line-height: 1;
+}
+.rec small {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+/* Annotation badge for accessibility callout */
+.a11y {
+  position: absolute;
+  font-family: var(--font-hand);
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  padding: 2px 8px;
+  border-radius: 6px 12px 6px 12px;
+  transform: rotate(-2deg);
+  white-space: nowrap;
+}
+
+/* Arrow indicator drawn in svg */
+.arrow-svg { position: absolute; }
